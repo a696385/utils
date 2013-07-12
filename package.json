@@ -14,5 +14,8 @@
   "license": "BSD",
   "bugs": {
     "url": "https://github.com/a696385/utils/issues"
+  },
+  "dependencies": {
+    "async": "~0.2.9"
   }
 }
