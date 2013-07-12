@@ -237,6 +237,7 @@ exports.loadModules = function(target, source, callback){
  * @param {String} [options.method] Method GET/POST/PUT/DELETE - Default GET
  * @param {String} [options.responseType] json/text - Default text
  * @param {String} [options.requestType] json/text - Default text
+ * @param {Boolean} [options.useCookies] Use Cookies - Default false
  * @param {Function} callback
  */
 exports.httpRequest = function(options, callback){
@@ -260,6 +261,7 @@ exports.httpRequest = function(options, callback){
     var method = options.method.toLowerCase();
     var requestType = options.requestType.toLowerCase();
     var responseType = options.responseType.toLowerCase();
+    var useCookies = options.useCookies || false;
 
     var protocol = options.url.substring(0,options.url.indexOf('//')).toLowerCase();
     protocol = protocol.substr(0, protocol.length-1);
@@ -326,7 +328,12 @@ exports.httpRequest = function(options, callback){
                     return;
                 }
             }
-            callback(null, response, cookies.join(';'));
+            if (useCookies){
+                callback(null, response, cookies.join(';'));
+            } else {
+                callback(null, response);
+            }
+
         });
     });
 
